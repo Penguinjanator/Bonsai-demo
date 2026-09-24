@@ -178,10 +178,10 @@ else
         # 27B: --jinja enables native OpenAI-style tool calling; --mmproj
         # enables image input; reference-demo sampling. The 27B is a thinking
         # model and thinking stays on. Older sizes keep their tested flag set.
-        # Sampling matches start_llama_server.sh: Bonsai 2 uses the base model's
-        # own defaults, the earlier families keep the profile they were tested on.
+        # Sampling matches start_llama_server.sh: Bonsai 2 uses the model card's
+        # values, the earlier families keep the profile they were tested on.
         if [ "$BONSAI_FAMILY" = "bonsai2" ]; then
-            _SAMPLING="--temp 1.0 --top-p 0.95 --top-k 20 --min-p 0"
+            _SAMPLING="--temp 1.0 --top-p 0.95 --top-k 20 --min-p 0.05"
         else
             _SAMPLING="--temp 0.7 --top-p 0.95 --top-k 20 --min-p 0"
         fi

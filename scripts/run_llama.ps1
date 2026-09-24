@@ -109,7 +109,7 @@ if ($BonsaiFamily -eq "bonsai2") {
         "--temp", "1.0",
         "--top-p", "0.95",
         "--top-k", "20",
-        "--min-p", "0"
+        "--min-p", "0.05"
     )
 } elseif ($BonsaiModel -eq "27B") {
     $CommonArgs = @(

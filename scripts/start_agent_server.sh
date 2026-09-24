@@ -9,7 +9,8 @@
 #   AGENT_MODEL_ALIAS=my-bonsai ./scripts/start_agent_server.sh   # model id (default = the recorded one)
 #
 # What the profile pins and why:
-#   --min-p 0                    model card (thinking mode): min_p 0.0; llama.cpp's default is 0.05
+#   --min-p 0                    the value the demo was recorded with (overrides the 0.05 that
+#                                start_llama_server.sh passes; the model card now recommends 0.05)
 #   --temp 1.0 --top-p 0.95 --top-k 20   model card; start_llama_server.sh sets these for Bonsai 2
 #   presence 0 / repeat 1.0      model card values == llama.cpp defaults, nothing to pass
 #   --reasoning-format deepseek  thinking is returned in message.reasoning_content and never echoed
