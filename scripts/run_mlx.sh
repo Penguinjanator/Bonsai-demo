@@ -20,8 +20,8 @@ MODEL="$MLX_MODEL_DIR"
 PROMPT=""
 
 # Only Bonsai 2 has a vision tower and a thinking phase, and only its generator takes
-# top-k and min-p. The earlier families go to mlx_generate.py, which would abort in argparse on any
-# of the three, so refuse them here with a message that says why.
+# top-k and min-p. The earlier families go to mlx_generate.py, which would abort in argparse on
+# these options, so refuse them here with a message that says why.
 _BONSAI2_ONLY=" --image --top-k --min-p --no-think --stats "
 
 # Rebuild the passthrough flags as real positional parameters. Collecting them into a
