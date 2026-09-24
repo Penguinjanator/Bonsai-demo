@@ -22,7 +22,9 @@ os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
 
 CYAN, DIM, RESET = "\033[36m", "\033[2m", "\033[0m"
 
-DEFAULTS = {"temp": 1.0, "top_p": 0.95, "top_k": 20, "max_tokens": 2048}
+# Matches the model card. The template reasons at xhigh effort by default, so a short token cap ends
+# generation mid-thought with no answer; mlx-vlm samples with min_p 0.0 unless told otherwise.
+DEFAULTS = {"temp": 1.0, "top_p": 0.95, "top_k": 20, "min_p": 0.05, "max_tokens": 16384}
 
 
 MANIFEST = Path(__file__).resolve().parent / "bonsai2-runtime.sha256"
@@ -88,6 +90,7 @@ def main():
     parser.add_argument("--temp", type=float, default=DEFAULTS["temp"])
     parser.add_argument("--top-p", type=float, default=DEFAULTS["top_p"])
     parser.add_argument("--top-k", type=int, default=DEFAULTS["top_k"])
+    parser.add_argument("--min-p", type=float, default=DEFAULTS["min_p"])
     parser.add_argument("--no-think", action="store_true", help="skip the thinking phase")
     parser.add_argument("--stats", action="store_true", help="show prompt and generation tokens/sec")
     args = parser.parse_args()
@@ -148,6 +151,7 @@ def main():
         temperature=args.temp,
         top_p=args.top_p,
         top_k=args.top_k,
+        min_p=args.min_p,
         verbose=False,
     )
     text = out if isinstance(out, str) else getattr(out, "text", str(out))

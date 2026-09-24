@@ -20,9 +20,9 @@ MODEL="$MLX_MODEL_DIR"
 PROMPT=""
 
 # Only Bonsai 2 has a vision tower and a thinking phase, and only its generator takes
-# top-k. The earlier families go to mlx_generate.py, which would abort in argparse on any
-# of the three, so refuse them here with a message that says why.
-_BONSAI2_ONLY=" --image --top-k --no-think --stats "
+# top-k and min-p. The earlier families go to mlx_generate.py, which would abort in argparse on
+# these options, so refuse them here with a message that says why.
+_BONSAI2_ONLY=" --image --top-k --min-p --no-think --stats "
 
 # Rebuild the passthrough flags as real positional parameters. Collecting them into a
 # string and expanding it unquoted would split paths on whitespace, so `--image "my cat.jpg"`
@@ -42,7 +42,7 @@ while [ "$1" != "--end-of-args--" ]; do
     fi
     case "$1" in
         -p) PROMPT="$2"; shift 2 ;;
-        --image|-n|--temp|--top-p|--top-k) set -- "$@" "$1" "$2"; shift 2 ;;
+        --image|-n|--temp|--top-p|--top-k|--min-p) set -- "$@" "$1" "$2"; shift 2 ;;
         --no-think|--stats) set -- "$@" "$1"; shift ;;
         *) shift ;;
     esac
