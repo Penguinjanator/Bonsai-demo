@@ -108,11 +108,11 @@ fi
 echo ""
 
 # 27B: --jinja enables native OpenAI-style tool calling; --mmproj enables
-# image input. Sampling: Bonsai 2 uses the base model's own defaults (temp 1.0,
-# top-p 0.95, top-k 20); the earlier 27B keeps the reference demo's 0.7.
+# image input. Sampling: Bonsai 2 uses the model card's values (temp 1.0,
+# top-p 0.95, top-k 20, min-p 0.05); the earlier 27B keeps the reference demo's 0.7.
 if [ "$BONSAI_FAMILY" = "bonsai2" ]; then
-    # model card, thinking mode: temp 1.0, top-p 0.95, top-k 20, min-p 0 (llama.cpp's default min-p is 0.05)
-    SAMPLING="--temp 1.0 --top-p 0.95 --top-k 20 --min-p 0"
+    # model card, thinking mode: temp 1.0, top-p 0.95, top-k 20, min-p 0.05 (llama.cpp's default; passed explicitly)
+    SAMPLING="--temp 1.0 --top-p 0.95 --top-k 20 --min-p 0.05"
 else
     SAMPLING="--temp 0.7 --top-p 0.95 --top-k 20 --min-p 0"
 fi

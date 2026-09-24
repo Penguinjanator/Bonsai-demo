@@ -142,10 +142,10 @@ Write-Host ""
 
 $ChatTemplateKwargs = if ($PSVersionTable.PSEdition -eq 'Desktop') { '{\"enable_thinking\": false}' } else { '{"enable_thinking": false}' }
 
-# Sampling for the 27B path: Bonsai 2 uses the base model's own defaults, the
+# Sampling for the 27B path: Bonsai 2 uses the model card's thinking-mode values, the
 # earlier families keep the profile they were tested on. Mirrors start_llama_server.sh.
 $SamplingArgs = if ($BonsaiFamily -eq "bonsai2") {
-    @("--temp", "1.0", "--top-p", "0.95", "--top-k", "20", "--min-p", "0")
+    @("--temp", "1.0", "--top-p", "0.95", "--top-k", "20", "--min-p", "0.05")
 } else {
     @("--temp", "0.7", "--top-p", "0.95", "--top-k", "20", "--min-p", "0")
 }
